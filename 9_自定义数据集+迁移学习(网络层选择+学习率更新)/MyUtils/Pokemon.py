@@ -8,6 +8,7 @@ import csv
 import random
 from PIL import Image
 
+random.seed(78)
 dataset_path='../../dataset/pokemon'
 
 #整理数据集 数据集包含多种格式，全部转换成jpg格式

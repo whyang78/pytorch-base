@@ -15,18 +15,24 @@ torch.manual_seed(78)
 
 #构造数据集
 trainData=mydataset(dataset_path,mode='train',transform=transforms.Compose([
-                transforms.Resize((224,224)),
+                transforms.Resize((224,224)), #直接两边转换为224,224
+                # transforms.Resize(224), #保持纵横比不变，最短边为224
+                # transforms.CenterCrop(224), #中心裁剪224*224的图像
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]))
 
 valData=mydataset(dataset_path,mode='val',transform=transforms.Compose([
                 transforms.Resize((224,224)),
+                # transforms.Resize(224),
+                # transforms.CenterCrop(224),
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]))
 
 testData=mydataset(dataset_path,mode='test',transform=transforms.Compose([
                 transforms.Resize((224,224)),
+                # transforms.Resize(224),
+                # transforms.CenterCrop(224),
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))]))
 

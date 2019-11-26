@@ -14,7 +14,8 @@ torch.manual_seed(78)
 #使用imagefolder加载数据集
 #其实在这个地方不太适合用这个，因为训练集验证集和测试集还没有划分，且他们的tf不一样，若是各个集分开存放，则比较适合
 tf=transform=transforms.Compose([
-                transforms.Resize((224,224)),
+                transforms.Resize(224),  # 保持纵横比不变，最短边为224
+                transforms.CenterCrop(224),  # 中心裁剪224*224的图像
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])
 

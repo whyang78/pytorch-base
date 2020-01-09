@@ -45,7 +45,7 @@ class Net(nn.Module):
         self.fc1=nn.Linear(28*28,128)
         self.fc2=nn.Linear(128,64)
         self.fc3=nn.Linear(64,10)
-
+        self.register_parameter('r',r)
     def forward(self, x):
         x=x.view(x.size(0),-1)
         x=self.fc1(x)

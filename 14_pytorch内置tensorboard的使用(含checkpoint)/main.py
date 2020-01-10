@@ -2,6 +2,9 @@ import torch
 from torch import nn,optim
 from torchvision import datasets,transforms
 from torch.utils.tensorboard import SummaryWriter
+import sys
+sys.path.append('.')
+from checkpoint import Checkpoint
 
 bs=200
 lr=0.01
@@ -55,6 +58,7 @@ criterion=nn.CrossEntropyLoss().to(device)
 
 #初始化SummaryWriter
 writer=SummaryWriter(log_dir='./logs')
+checkpoint=Checkpoint(net,optimizer,max_to_keep=0)
 
 global_step=0
 for epoch in range(Epoch):
@@ -71,10 +75,12 @@ for epoch in range(Epoch):
         global_step+=1
         writer.add_scalar('loss/train',loss.item(),global_step)
         writer.flush()
-        if batch_index%10==0:
+        if batch_index%50==0:
             writer.add_text('loss/text','epoch:{},batch:{},loss:{:.4f}'.format(epoch,batch_index,loss.item()),
                             global_step)
             writer.flush()
+            ckpt_name=f'global_step_{global_step}.pth'
+            checkpoint.save(ckpt_name)
 
     net.eval() #开启测试模式 dropout层失效 验证和测试时使用完整的网络结构
     val_loss=0.0

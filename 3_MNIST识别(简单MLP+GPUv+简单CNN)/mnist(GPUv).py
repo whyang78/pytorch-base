@@ -6,6 +6,7 @@ import os
 from func import plot_image, plot_curve
 import time
 
+
 start=time.time()
 download=False
 bs=64

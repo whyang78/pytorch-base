@@ -24,6 +24,8 @@ COCO_INSTANCE_CATEGORY_NAMES = [
 
 def get_predection(image_path,threshold):
     img=Image.open(image_path)
+    # img=cv2.imread(image_path)
+    # img=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     tf=transforms.ToTensor()
     img=tf(img).to(device)
     pred=model([img])
@@ -51,7 +53,7 @@ def object_detection(image_path,threshold=0.5):
             bbox[0],
             bbox[1],
             color,
-            2
+            10
         )
         cv2.putText(
             img,
@@ -79,6 +81,6 @@ if __name__ == '__main__':
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True).to(device)
     model.eval()
 
-    image_path='./people.jpg'
+    image_path='./239.jpg'
     threshold = 0.5
     object_detection(image_path,threshold)

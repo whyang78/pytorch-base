@@ -10,9 +10,9 @@ class ResidualBlock(nn.Module):
         self.left=nn.Sequential(
             nn.Conv2d(inChannel,outChannel,kernel_size=3,stride=stride,padding=1,bias=False),
             nn.BatchNorm2d(outChannel),
-            nn.Conv2d(outChannel,outChannel,kernel_size=3,stride=1,padding=1,bias=False),
-            nn.BatchNorm2d(outChannel),
             nn.ReLU(inplace=True),
+            nn.Conv2d(outChannel,outChannel,kernel_size=3,stride=1,padding=1,bias=False),
+            nn.BatchNorm2d(outChannel),  
         )
 
         self.short_cut=nn.Sequential()
